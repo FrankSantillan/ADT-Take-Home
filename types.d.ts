@@ -1,0 +1,1 @@
+export interface SystemInfo { brand: string, model: string, os: string, release: string }

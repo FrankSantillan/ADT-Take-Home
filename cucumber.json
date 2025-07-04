@@ -1,0 +1,41 @@
+{
+    "default":{
+        "formatOptions": {
+            "snippetInterface": "async-await"
+        },
+        "paths":["src/features/*/*.feature","src/features/*/*/*.feature"],
+        "dryRun": false,
+        "require": ["src/step_definitions/*/*.ts",
+            "src/hooks/hook.ts"
+        ],
+        "requireModule": ["ts-node/register"],
+        "format":[
+            "progress-bar",
+            "html:test-results/cucumber-results/cucumber-report.html",
+            "json:test-results/cucumber-results/cucumber-report.json",
+            "./src/utils/allure/reporter.ts",
+            "rerun:@rerun.txt"
+        ],
+        "parallel": 0,
+        "retry": 0
+    },
+
+    "rerun":{
+        "formatOptions": {
+            "snippetInterface": "async-await"
+        },
+        "dryRun": false,
+        "require": ["src/step_definitions/*/*.ts",
+            "src/hooks/hook.ts"
+        ],
+        "requireModule": ["ts-node/register"],
+        "format":[
+            "progress-bar",
+            "html:test-results/cucumber-results/cucumber-report.html",
+            "json:test-results/cucumber-results/cucumber-report.json",
+            "./src/utils/allure/reporter.ts",
+            "rerun:@rerun.txt"
+        ],
+        "parallel": 0
+    }
+}
