@@ -105,5 +105,14 @@ npm install --save dayjs-plugin-utc dayjs-plugin-timezone
   },
 ```
 
+## 🐳 Run Docker Container
+```
+# Build the image
+docker build -t adt-take-home-tests .
+
+# This mounts your local test-results folder so reports persist outside the container.
+docker run --rm -v ${PWD}/test-results:/app/test-results adt-take-home-tests
+
+```
 ## 🧑‍💻 Author
 Frank Santillan
