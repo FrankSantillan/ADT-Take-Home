@@ -22,13 +22,8 @@ Given('I have {int} carrots', function (count: number) {
 });
 
 When('I eat {int} carrots', function (eaten: number) {
-    carrots = Math.max(0, carrots - eaten);
+    carrots -= eaten
 });
-
-/*Then('I have {int} carrots', function (expected: number) {
-    assert.equal(carrots, expected);
-});
-*/
 
 When('I make a salad with {int} cucumbers and {int} carrots', function (usedCucumbers: number, usedCarrots: number) {
     cucumbers -= usedCucumbers;
@@ -39,6 +34,7 @@ When('I make a salad with {int} cucumbers and {int} carrots', function (usedCucu
 Then('I have {int} salads', function (expected: number) {
     assert.equal(salads, expected);
 });
-Then('I have {int} salads', function (expected: number) {
+
+Then('I have {int} salad', function (expected: number) {
     assert.equal(salads, expected);
 });

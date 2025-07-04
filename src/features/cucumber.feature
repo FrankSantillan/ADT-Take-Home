@@ -20,4 +20,4 @@ Feature: Cucumber Mathematics
     When I make a salad with 3 cucumbers and 2 carrots
     Then I have 5 cucumbers
     And I have 3 carrots
-  #  Then I have 1 salad
+    Then I have 1 salad
