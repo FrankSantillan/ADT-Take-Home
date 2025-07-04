@@ -50,8 +50,6 @@ npm init -y
 # 3. Install required dependencies
 npm install --save-dev typescript ts-node @types/node
 npm install --save-dev @cucumber/cucumber
-npm install --save-dev allure-commandline
-npm install --save-dev @shelex/cucumberjs-allure2-reporter
 
 # 4. Optional: Install ESLint/Prettier if you want code linting
 # npm install --save-dev eslint prettier
@@ -72,19 +70,39 @@ npm install --save dayjs-plugin-utc dayjs-plugin-timezone
 ## 📁 Project Structure
 ```
 .
-├── features/
-│   ├── step_definitions/
-│   │   └── steps.ts         # Step definitions
-│   └── cucumber.feature     # Gherkin scenarios
-├── tsconfig.json            # TypeScript config
-├── package.json             # Dependencies and scripts
-└── README.md                # Project instructions
+├── src/
+│   ├── features/
+│   │   ├── step_definitions/           # Step Definitions Folder
+│   │   │   └── steps.ts                # Step definitions
+│   └── cucumber.feature                # Gherkin scenarios
+│   ├── utils/                          # Utils Folder
+│   │   │   ├── multiple-cucumber       # multiple-cucumber folder
+│   │   │   │     └──icons/             # icons Folder
+│   │   │   │     └──reporter.ts        # reporter
+│   │   │   └── constants.ts            # constants
+│   │   │   └── reportUtils.ts          # reportUtils
+│   │   │   └── testUtils.ts            # testUtils
+├── env.d.ts                            # Environment config file
+├── type.d.ts                           # type file
+├── tsconfig.json                       # TypeScript config
+├── package.json                        # Dependencies and scripts
+└── README.md                           # Project instructions
+└── cucumber.js                         # cucumber.js file
 ```
 
 ## ▶️ Run the Tests
 ```
 # Run all Cucumber scenarios with TypeScript support
-npx cucumber-js --require-module ts-node/register --require features/**/*.ts
+# Go to Package.jsin file
+
+"scripts": {
+    "test": "npx cucumber-js",
+    "test:scenario1": "npx cucumber-js --tags '@Scenario1'",
+    "test:regression": "npx cucumber-js --tags '@Regression'",
+    "test-report": "npx cucumber-js --format json:test-results/cucumber-report.json",
+    "test-multiple-report": "npx cucumber-js --format json:test-results/cucumber-results/cucumber-report.json",
+    "cucumber-report": "npx ts-node src/utils/multiple-cucumber/reporter.ts"
+  },
 ```
 
 ## 🧑‍💻 Author
