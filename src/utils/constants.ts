@@ -1,3 +1,6 @@
+/**
+ * Enum for the possible System Operation used at the moment to generates the report
+ */
 export enum SystemOs {
     macOS = 'osx',
     Windows = 'windows',
@@ -5,5 +8,4 @@ export enum SystemOs {
     Ubuntu = 'ubuntu',
     Android = 'android',
     iOS = 'ios'
-
 }

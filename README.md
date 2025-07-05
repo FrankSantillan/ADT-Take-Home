@@ -53,9 +53,6 @@ npm install --save-dev @cucumber/cucumber
 npm install --save-dev multiple-cucumber-html-reporter
 npm install --save-dev @types/lodash
 
-
-
-
 # 4. Optional: Install ESLint/Prettier if you want code linting
 # npm install --save-dev eslint prettier
 
@@ -75,6 +72,9 @@ npm install --save dayjs-plugin-utc dayjs-plugin-timezone
 ## 📁 Project Structure
 ```
 .
+├──.github/
+│   ├── workflows/
+│   │   └──run-tests-on-merge.yml       # Your test workflow CI/CD
 ├── src/
 │   ├── features/
 │   │   ├── step_definitions/           # Step Definitions Folder
@@ -100,14 +100,15 @@ npm install --save dayjs-plugin-utc dayjs-plugin-timezone
 # Run all Cucumber scenarios with TypeScript support
 # Go to Package.jsin file
 
-"scripts": {
+ "scripts": {
     "test": "npx cucumber-js",
     "test:scenario1": "npx cucumber-js --tags '@Scenario1'",
     "test:regression": "npx cucumber-js --tags '@Regression'",
-    "test-report": "npx cucumber-js --format json:test-results/cucumber-report.json",
-    "test-multiple-report": "npx cucumber-js --format json:test-results/cucumber-results/cucumber-report.json",
-    "cucumber-report": "npx ts-node src/utils/multiple-cucumber/reporter.ts"
-  },
+    "genrate-cucumber-report": "npx cucumber-js --format json:test-results/cucumber-report.json",
+    "multiple-cucumber-report": "cucumber-js --require-module ts-node/register --require src/step_definitions/**/*.ts --format json:./test-results/cucumber-results/cucumber-report.json",
+    "show-multiple-cucumber-report": "npx ts-node src/utils/multiple-cucumber/reporter.ts",
+    "build-docker-container": "docker build -t adt-test-runner .",
+    "test-docker-scenarios": "docker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner"
 ```
 
 ## 🐳 Run Docker Container
@@ -116,7 +117,7 @@ npm install --save dayjs-plugin-utc dayjs-plugin-timezone
 docker build -t adt-take-home-tests .
 
 # This mounts your local test-results folder so reports persist outside the container.
-docker run --rm -v ${PWD}/test-results:/app/test-results adt-take-home-tests
+ddocker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner
 
 ```
 ## 🧑‍💻 Author

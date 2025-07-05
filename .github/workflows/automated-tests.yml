@@ -1,0 +1,54 @@
+name: Automated Tests
+
+on:
+  # Trigger on PR merges to main
+  push:
+    branches: [ dev ]
+
+  # Daily schedule at 10:30 AM (UTC)
+  schedule:
+    - cron: '30 10 * * *'
+
+  # Optional: Manual trigger from UI
+  workflow_dispatch:
+
+# Set environment variables
+env:
+  TZ: America/New_York  # Set your timezone
+
+jobs:
+  run-tests:
+    name: Execute Test Scenarios
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci  # Clean installation for consistency
+
+      - name: Run test scenarios
+        run: npm run test:ci
+        env:
+          CI: true  # Important for test runners
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ github.run_id }}
+          path: |
+            test-results/**/*
+            coverage/
+
+      - name: Notify on failure
+        if: failure()
+        run:
+          echo "❌ Tests failed! See run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

@@ -13,7 +13,6 @@
             "progress-bar",
             "html:test-results/cucumber-results/cucumber-report.html",
             "json:test-results/cucumber-results/cucumber-report.json",
-            "./src/utils/allure/reporter.ts",
             "rerun:@rerun.txt"
         ],
         "parallel": 0,
@@ -33,7 +32,6 @@
             "progress-bar",
             "html:test-results/cucumber-results/cucumber-report.html",
             "json:test-results/cucumber-results/cucumber-report.json",
-            "./src/utils/allure/reporter.ts",
             "rerun:@rerun.txt"
         ],
         "parallel": 0

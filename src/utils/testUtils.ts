@@ -2,6 +2,21 @@ import si from 'systeminformation'
 import { isNil } from 'lodash'
 import {chromium, firefox, webkit} from "playwright";
 import {SystemInfo} from "../../types";
+/**
+ * Define the structure of the vegetable inventory with specific quantities
+ */
+type Inventory = {
+    cucumbers: number;
+    carrots: number;
+    salads: number;
+};
+
+/**
+ * This allows each scenario to maintain its own isolated inventory state
+ */
+export interface InventoryVegetables {
+    inventory: Inventory;  // Holds the current scenario's inventory data
+}
 
 /**
  * Retrieves the version of the specified browser type.
