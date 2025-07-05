@@ -1,6 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 
+/**
+ * This constant will be called when the multiple cucumber is generated to update the favicon on the report page.
+ */
 export const updateFavIcon = async (): Promise<any> => {
     console.log(__dirname)
     const iconFolder = '../../test-results/multiple-cucumber/icons'
