@@ -3,7 +3,7 @@ name: Automated Tests
 on:
   # Trigger on PR merges to main
   push:
-    branches: [ main ]
+    branches: [ dev ]
 
   # Daily schedule at 10:30 AM (UTC)
   schedule:
