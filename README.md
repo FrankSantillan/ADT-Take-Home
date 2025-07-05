@@ -120,5 +120,10 @@ docker build -t adt-take-home-tests .
 ddocker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner
 
 ```
+
+## GitHUb Actions
+![Automated Tests](https://github.com/FrankSantillan/ADT-Take-Home/actions/workflows/automated-tests.yml/badge.svg?branch=dev)
+
+
 ## 🧑‍💻 Author
 Frank Santillan

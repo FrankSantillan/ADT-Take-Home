@@ -1,20 +1,20 @@
 name: Automated Tests
 
 on:
-  # Trigger on PR merges to main
+  # Run on pushes to the dev branch
   push:
-    branches: [ dev ]
+    branches:
+      - dev
 
-  # Daily schedule at 10:30 AM (UTC)
+  # Daily run at 10:30 AM CST (which is 16:30 UTC)
   schedule:
-    - cron: '30 10 * * *'
+    - cron: '30 16 * * *'
 
-  # Optional: Manual trigger from UI
+  # Allow manual triggering from the Actions UI
   workflow_dispatch:
 
-# Set environment variables
 env:
-  TZ: America/New_York  # Set your timezone
+  TZ: America/Mexico_City  # Optional: GitHub runner timezone
 
 jobs:
   run-tests:
@@ -22,33 +22,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: 🛠️ Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci  # Clean installation for consistency
+      - name: 📦 Install dependencies
+        run: npm ci
 
-      - name: Run test scenarios
+      - name: 🚀 Run test scenarios
         run: npm run test:ci
         env:
-          CI: true  # Important for test runners
+          CI: true
 
-      - name: Upload test results
+      - name: 📤 Upload test results
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: test-results-${{ github.run_id }}
           path: |
-            test-results/**/*
+            test-results/
             coverage/
 
-      - name: Notify on failure
+      - name: ❌ Notify on failure (console log)
         if: failure()
-        run:
-          echo "❌ Tests failed! See run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: |
+                 echo "❌ Tests failed! See run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
