@@ -50,6 +50,11 @@ npm init -y
 # 3. Install required dependencies
 npm install --save-dev typescript ts-node @types/node
 npm install --save-dev @cucumber/cucumber
+npm install --save-dev multiple-cucumber-html-reporter
+npm install --save-dev @types/lodash
+
+
+
 
 # 4. Optional: Install ESLint/Prettier if you want code linting
 # npm install --save-dev eslint prettier

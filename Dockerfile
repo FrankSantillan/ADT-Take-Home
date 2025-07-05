@@ -1,27 +1,32 @@
-# Use official Playwright base image with all browsers installed
+# Use official Playwright image with dependencies
 FROM mcr.microsoft.com/playwright:v1.44.0-jammy
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files and tsconfig for TypeScript support
 COPY package*.json ./
-RUN npm install
-RUN npm install -g allure-commandline
+COPY tsconfig.json ./
 
-# Copy all source code
+# Install all dependencies including devDependencies
+RUN npm install
+
+# Copy the rest of your project files
 COPY . .
 
-# Make sure the test-results folder exists
-RUN mkdir -p test-results/allure-results
+# Create folder for cucumber JSON results (to store reports)
+RUN mkdir -p test-results/cucumber-results
 
-# Install allure CLI globally
-RUN npm install -g allure-commandline
+# Install Playwright browsers (optional but safe)
+RUN npx playwright install --with-deps
 
-# Set the command to run tests (can be overridden)
-CMD ["npm", "run", "test:allure"]
+# Default command: run regression tests with cucumber-js and generate JSON report
+CMD ["npx", "cucumber-js", "--tags", "@Regression", "--format", "json:test-results/cucumber-results/cucumber-report.json"]
 
-FROM ubuntu:latest
-LABEL authors="franksantillan"
+# Expose volume for report folder so host can access results
+VOLUME ["/app/test-results/cucumber-results"]
 
-ENTRYPOINT ["top", "-b"]
+
+# Run the test by default when the container starts
+#CMD ["npm", "run", "test:regression"]
+
+VOLUME /app/cucumber-report

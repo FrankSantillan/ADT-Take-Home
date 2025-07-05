@@ -1,3 +1,4 @@
 node_modules
-test-results/allure-report
 dist
+test-results/allure-report
+test-results/allure-results

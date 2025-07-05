@@ -1,0 +1,47 @@
+{
+  "name": "adt-take-home",
+  "version": "1.0.0",
+  "description": "# 🥒 Cucumber & TypeScript BDD Test Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cucumber-js",
+    "test:scenario1": "npx cucumber-js --tags '@Scenario1'",
+    "test:regression": "npx cucumber-js --tags '@Regression'",
+    "genrate-cucumber-report": "npx cucumber-js --format json:test-results/cucumber-report.json",
+    "multiple-cucumber-report": "cucumber-js --require-module ts-node/register --require src/step_definitions/**/*.ts --format json:./test-results/cucumber-results/cucumber-report.json",
+    "show-multiple-cucumber-report": "npx ts-node src/utils/multiple-cucumber/reporter.ts",
+    "build-docker-container": "docker build -t adt-test-runner .",
+    "test-docker-scenarios": "docker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.17.20",
+    "allure-commandline": "2.29",
+    "allure-cucumberjs": "^3.3.0",
+    "allure-playwright": "^2.15.1",
+    "dotenv": "^16.3.1",
+    "eslint": "^9.30.1",
+    "lodash": "^4.17.21",
+    "multiple-cucumber-html-reporter": "3.9.3",
+    "playwright": "^1.53.2",
+    "prettier": "^3.6.2",
+    "systeminformation": "^5.21.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "dayjs": "^1.11.13",
+    "lodash": "^4.17.21",
+    "multiple-cucumber-html-reporter": "^3.9.3",
+    "systeminformation": "^5.27.7"
+  }
+}
