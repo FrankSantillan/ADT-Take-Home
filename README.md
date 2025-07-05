@@ -72,6 +72,9 @@ npm install --save dayjs-plugin-utc dayjs-plugin-timezone
 ## 📁 Project Structure
 ```
 .
+├──.github/
+│   ├── workflows/
+│   │   └──run-tests-on-merge.yml       # Your test workflow CI/CD
 ├── src/
 │   ├── features/
 │   │   ├── step_definitions/           # Step Definitions Folder

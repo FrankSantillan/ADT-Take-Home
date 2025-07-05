@@ -11,7 +11,9 @@
     "multiple-cucumber-report": "cucumber-js --require-module ts-node/register --require src/step_definitions/**/*.ts --format json:./test-results/cucumber-results/cucumber-report.json",
     "show-multiple-cucumber-report": "npx ts-node src/utils/multiple-cucumber/reporter.ts",
     "build-docker-container": "docker build -t adt-test-runner .",
-    "test-docker-scenarios": "docker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner"
+    "test-docker-scenarios": "docker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner",
+    "test:ci:create:html": "npx cucumber-js --require-module ts-node/register --require features/**/*.ts --format json:./test-results/cucumber-report.json && npx @cucumber/html-formatter ./test-results/cucumber-report.json > ./test-results/cucumber-results/cucumber-report.html",
+    "test:ci": "npx cucumber-js --require-module ts-node/register --require features/**/*.ts --format json:./test-results/cucumber-results/cucumber-report.json"
 
   },
   "keywords": [],
