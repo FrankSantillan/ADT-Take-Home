@@ -65,7 +65,6 @@ npx playwright install
 
 # 7 Install dayjs and plugins:
 npm install dayjs
-npm install --save dayjs-plugin-utc dayjs-plugin-timezone
 
 ```
 
