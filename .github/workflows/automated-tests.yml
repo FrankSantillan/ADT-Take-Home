@@ -1,0 +1,55 @@
+name: Automated Tests
+
+on:
+  # Run on pushes to the dev branch
+  push:
+    branches:
+      - dev
+
+  # Daily run at 10:30 AM CST (which is 16:30 UTC)
+  schedule:
+    - cron: '30 16 * * *'
+
+  # Allow manual triggering from the Actions UI
+  workflow_dispatch:
+
+env:
+  TZ: America/Mexico_City  # Optional: GitHub runner timezone
+
+jobs:
+  run-tests:
+    name: Execute Test Scenarios
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🚀 Run test scenarios
+        run: npm run test:ci
+        env:
+          CI: true
+
+      - name: 📤 Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ github.run_id }}
+          path: |
+            test-results/
+            coverage/
+
+      - name: ❌ Notify on failure (console log)
+        if: failure()
+        run: |
+                 echo "❌ Tests failed! See run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+

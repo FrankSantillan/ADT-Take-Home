@@ -6,12 +6,21 @@
   "scripts": {
     "test": "npx cucumber-js",
     "test:scenario1": "npx cucumber-js --tags '@Scenario1'",
-    "test:regression": "npx cucumber-js --tags '@Regression'",
+    "original:test:regression": "npx cucumber-js --tags '@Regression'",
     "generate-cucumber-report": "npx cucumber-js --format json:./test-results/cucumber-results/cucumber-report.json && npx @cucumber/html-formatter ./test-results/cucumber-report.json > ./test-results/cucumber-results/cucumber-report.html",
     "multiple-cucumber-report": "cucumber-js --require-module ts-node/register --require src/step_definitions/**/*.ts --format json:./test-results/cucumber-results/cucumber-report.json",
     "show-multiple-cucumber-report": "npx ts-node src/utils/multiple-cucumber/reporter.ts",
+    "original:serve:regression:report": "npm run test:regression && npm run show-multiple-cucumber-report && npx http-server cucumber-report -p 8080",
     "build-docker-container": "docker build -t adt-test-runner .",
-    "test-docker-scenarios": "docker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner"
+    "test-docker-scenarios": "docker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner",
+    "docker:runner": "docker run --rm -p 8080:8080 adt-test-runner",
+    "test:ci:create:html": "npx cucumber-js --require-module ts-node/register --require features/**/*.ts --format json:./test-results/cucumber-report.json && npx @cucumber/html-formatter ./test-results/cucumber-report.json > ./test-results/cucumber-results/cucumber-report.html",
+    "test:ci": "npx cucumber-js --require-module ts-node/register --require features/**/*.ts --format json:./test-results/cucumber-results/cucumber-report.json",
+
+
+    "test:regression": "npx cucumber-js --tags '@Regression' --format json:test-results/cucumber-results/cucumber-report.json",
+    "generate:multi-report": "npx multiple-cucumber-html-reporter --jsonDir test-results/cucumber-results --reportPath cucumber-report",
+    "serve:regression:report": "npm run test:regression && npm run generate:multi-report && npx http-server cucumber-report -p 8080"
 
   },
   "keywords": [],

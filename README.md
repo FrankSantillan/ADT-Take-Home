@@ -65,13 +65,15 @@ npx playwright install
 
 # 7 Install dayjs and plugins:
 npm install dayjs
-npm install --save dayjs-plugin-utc dayjs-plugin-timezone
 
 ```
 
 ## 📁 Project Structure
 ```
 .
+├──.github/
+│   ├── workflows/
+│   │   └──run-tests-on-merge.yml       # Your test workflow CI/CD
 ├── src/
 │   ├── features/
 │   │   ├── step_definitions/           # Step Definitions Folder
@@ -117,5 +119,10 @@ docker build -t adt-take-home-tests .
 ddocker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner
 
 ```
+
+## GitHUb Actions
+![Automated Tests](https://github.com/FrankSantillan/ADT-Take-Home/actions/workflows/automated-tests.yml/badge.svg?branch=dev)
+
+
 ## 🧑‍💻 Author
 Frank Santillan
