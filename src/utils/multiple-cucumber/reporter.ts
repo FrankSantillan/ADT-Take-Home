@@ -9,6 +9,10 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const report = require('multiple-cucumber-html-reporter')
 
+/**
+ * Generate the Multiple Cucumber Report
+ * Total Test cases, time, OS, Browser Version are included
+ */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function generateReport () {
     const browserVersion = await getBrowserVersion()
@@ -49,13 +53,18 @@ async function generateReport () {
     })
 }
 
+/**
+ * This function generate the report and async way update the favicon icon
+ */
 generateReport().then(async () => {
     await updateFavIcon()
 }).catch(error => {
     console.error('Error generating the report:', error)
 })
 
-//Get Current date on format Jul 3rd 2025, 04:15 PM EST
+/**
+ *Get Current date on format Jul 3rd 2025, 04:15 PM EST
+ */
 async function getCurrentDate(): Promise<string> {
     dayjs.extend(utc);
     dayjs.extend(timezone);
