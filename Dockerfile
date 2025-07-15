@@ -1,31 +1,19 @@
-# Use official Playwright image with dependencies
-FROM mcr.microsoft.com/playwright:v1.44.0-jammy
+# Use official Node.js image
+FROM node:20
 
+# Create app directory
 WORKDIR /app
 
-# Copy package files and tsconfig for TypeScript support
+# Copy package files and install dependencies
 COPY package*.json ./
-COPY tsconfig.json ./
 
-# Install all dependencies including devDependencies
+# Install dependencies
 RUN npm install
 
-# Copy the rest of your project files
+# Copy all other source code
 COPY . .
-
-# Create folder for cucumber JSON results (to store reports)
-RUN mkdir -p test-results/cucumber-results cucumber-report
 
 EXPOSE 8080
 
-# Install Playwright browsers (optional but safe)
-RUN npx playwright install --with-deps
-
-# Default command: run regression tests with cucumber-js and generate JSON report
-#CMD ["sh", "-c", "npm run serve:regression:report"]
-CMD ["npm", "run", "serve:regression:report","npx", "cucumber-js", "--tags", "@Regression", "--format", "json:test-results/cucumber-results/cucumber-report.json"]
-
-# Expose volume for report folder so host can access results
-VOLUME ["/app/test-results/cucumber-results"]
-
-VOLUME /app/cucumber-report
+# Run regression tests and generate report
+CMD ["npm", "run", "serve:regression:report"]

@@ -52,6 +52,7 @@ npm install --save-dev typescript ts-node @types/node
 npm install --save-dev @cucumber/cucumber
 npm install --save-dev multiple-cucumber-html-reporter
 npm install --save-dev @types/lodash
+npm install --save-dev http-server
 
 # 4. Optional: Install ESLint/Prettier if you want code linting
 # npm install --save-dev eslint prettier

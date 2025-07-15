@@ -6,35 +6,30 @@
   "scripts": {
     "test": "npx cucumber-js",
     "test:scenario1": "npx cucumber-js --tags '@Scenario1'",
-    "original:test:regression": "npx cucumber-js --tags '@Regression'",
+    "test:regression": "npx cucumber-js --tags '@Regression'",
     "generate-cucumber-report": "npx cucumber-js --format json:./test-results/cucumber-results/cucumber-report.json && npx @cucumber/html-formatter ./test-results/cucumber-report.json > ./test-results/cucumber-results/cucumber-report.html",
     "multiple-cucumber-report": "cucumber-js --require-module ts-node/register --require src/step_definitions/**/*.ts --format json:./test-results/cucumber-results/cucumber-report.json",
     "show-multiple-cucumber-report": "npx ts-node src/utils/multiple-cucumber/reporter.ts",
-    "original:serve:regression:report": "npm run test:regression && npm run show-multiple-cucumber-report && npx http-server cucumber-report -p 8080",
     "build-docker-container": "docker build -t adt-test-runner .",
     "test-docker-scenarios": "docker run --rm -v $(pwd)/test-results/cucumber-results:/app/test-results/cucumber-results adt-test-runner",
     "docker:runner": "docker run --rm -p 8080:8080 adt-test-runner",
     "test:ci:create:html": "npx cucumber-js --require-module ts-node/register --require features/**/*.ts --format json:./test-results/cucumber-report.json && npx @cucumber/html-formatter ./test-results/cucumber-report.json > ./test-results/cucumber-results/cucumber-report.html",
+
     "test:ci": "npx cucumber-js --require-module ts-node/register --require features/**/*.ts --format json:./test-results/cucumber-results/cucumber-report.json",
-
-
-    "test:regression": "npx cucumber-js --tags '@Regression' --format json:test-results/cucumber-results/cucumber-report.json",
+    "original:test:regression": "npx cucumber-js --tags '@Regression' --format json:test-results/cucumber-results/cucumber-report.json",
     "generate:multi-report": "npx multiple-cucumber-html-reporter --jsonDir test-results/cucumber-results --reportPath cucumber-report",
-    "serve:regression:report": "npm run test:regression && npm run generate:multi-report && npx http-server cucumber-report -p 8080"
-
+    "serve:regression:report": "npm run test:regression && npm run multiple-cucumber-report && npx http-server cucumber-report -p 8080"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/lodash": "^4.17.20",
-    "allure-commandline": "2.29",
-    "allure-cucumberjs": "^3.3.0",
-    "allure-playwright": "^2.15.1",
     "dotenv": "^16.3.1",
     "eslint": "^9.30.1",
+    "http-server": "^14.1.1",
     "lodash": "^4.17.21",
-    "multiple-cucumber-html-reporter": "3.9.3",
+    "multiple-cucumber-html-reporter": "^3.9.3",
     "playwright": "^1.53.2",
     "prettier": "^3.6.2",
     "systeminformation": "^5.21.9",
@@ -50,7 +45,6 @@
     "@cucumber/cucumber": "^11.3.0",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
-    "multiple-cucumber-html-reporter": "^3.9.3",
     "systeminformation": "^5.27.7"
   }
 }

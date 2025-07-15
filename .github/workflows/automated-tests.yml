@@ -4,6 +4,7 @@ on:
   # Run on pushes to the dev branch
   push:
     branches:
+      - main
       - dev
 
   # Daily run at 10:30 AM CST (which is 16:30 UTC)
